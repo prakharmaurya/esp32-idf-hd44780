@@ -25,12 +25,16 @@ void app_main(void)
 void LCD_DemoTask(void *param)
 {
   char txtBuf[8];
+  uint8_t droplet[8] = {0b00100, 0b00100, 0b01110, 0b11111, 0b11111, 0b11111, 0b01110, 0b00000};
+  LCD_createChar(0, droplet); // added custom char
   while (true)
   {
     int row = 0, col = 0;
     LCD_home();
     LCD_clearScreen();
-    LCD_writeStr("----- 20x4 LCD -----");
+    LCD_writeChar(0); // printed custom char
+    LCD_writeStr("---- 20x4 LCD ----");
+    LCD_writeChar(0); // printed custom char
     LCD_setCursor(0, 1);
     LCD_writeStr("LCD Library Demo");
     LCD_setCursor(12, 3);

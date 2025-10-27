@@ -169,3 +169,13 @@ static void LCD_pulseEnable(uint8_t data)
     i2c_master_transmit(dev_handle, &buf, 1, 2000 / portTICK_PERIOD_MS);
     ets_delay_us(500);
 }
+
+void LCD_createChar(uint8_t location, uint8_t pattern[8])
+{
+    location &= 0x07; // Only 8 locations (0–7)
+    LCD_writeByte(LCD_READ_BF | (location << 3), LCD_COMMAND);
+    for (int i = 0; i < 8; i++)
+    {
+        LCD_writeByte(pattern[i], LCD_WRITE);
+    }
+}
